@@ -1,5 +1,11 @@
 const { connection } = require('../config/config');
 
+// ====================== Testing ======================
+const test = (req, res) => {
+  res.render('dashboard.ejs', {results: [{user: 'test', level: 'Test session'}]});
+}
+// ====================== Export ======================
+
 const homePage = (req, res) => {
   res.render('home.ejs', {isLoged: true});
 };
@@ -15,7 +21,11 @@ const loginUser = (req, res) => {
         const { level, pass } = results[0];
         if (pass === password){
           console.log(results);
-          res.render('logged.ejs', {results});
+          if (level === 'Petugas'){
+            res.render('dashboard.ejs', {results});
+          } else {
+            res.render('logged.ejs', {results});
+          }
         } else {
           res.render('home.ejs', {isLoged});
         }
@@ -37,7 +47,8 @@ const getUser = (req, res) => {
   );
 };
 
-module.exports = { 
+module.exports = {
+  test,
   homePage,
   getUser,
   loginUser,
