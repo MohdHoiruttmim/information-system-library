@@ -2,7 +2,9 @@ const { connection } = require('../config/config');
 
 // ====================== Testing ======================
 const test = (req, res) => {
-  res.render('dashboard.ejs', {results: [{user: 'test', level: 'Test session'}]});
+  console.log(req.query.tab)
+  // console.log(req.params.tab)
+  res.render('dashboard.ejs', {results: [{user: 'test', level: 'Test session', params: req.query.tab}]});
 }
 // ====================== Export ======================
 
