@@ -4,18 +4,18 @@
   <thead>
     <tr>
       <th scope="col">No.</th>
-      <th scope="col">Title</th>
-      <th scope="col">Penerbit</th>
-      <th scope="col">Pengarang</th>
+      <th scope="col">Nama</th>
+      <th scope="col">Email</th>
+      <th scope="col">Telpon</th>
     </tr>
   </thead>
   <tbody>
     <% books.forEach((elm, index) => { %>
       <tr>
         <th scope="row"><%= index+1  %> </th>
-        <td><%= elm.title %> </td>
-        <td><%= elm.penerbit %> </td>
-        <td><%= elm.pengarang %> </td>
+        <td><%= elm.nama %> </td>
+        <td><%= elm.email %> </td>
+        <td><%= elm.telepon	 %> </td>
       </tr>
     <% }) %> 
   </tbody>
