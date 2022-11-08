@@ -1,10 +1,26 @@
 const { connection } = require('../config/config');
 
 // ====================== Testing ======================
-const test = (req, res) => {
+const test = async (req, res) => {
   console.log(req.query.tab)
   // console.log(req.params.tab)
-  res.render('dashboard.ejs', {results: [{user: 'test', level: 'Test session', params: req.query.tab}]});
+  // console.log(await getBooks());
+  connection.query(
+    'SELECT * FROM tbl_buku',
+    (error, results) => {
+      // console.log({results});
+      res.render('dashboard.ejs', 
+      {results: [{
+                  user: 'test', 
+                  level: 'Test session', 
+                  params: req.query.tab,
+                  datas: results
+                  // datas: await getBooks(),
+                }]}
+      );
+    }
+  )
+  // console.log(getUser());
 }
 // ====================== Export ======================
 
@@ -25,6 +41,7 @@ const loginUser = (req, res) => {
           console.log(results);
           if (level === 'Petugas'){
             res.render('dashboard.ejs', {results});
+            // test(req, res);
           } else {
             res.render('logged.ejs', {results});
           }
@@ -45,13 +62,26 @@ const getUser = (req, res) => {
     'SELECT user, email FROM tbl_login',
     (error, results) => {
       res.json({ results });
+      // return { results };
     }
   );
 };
+
+const getBooks = async (req, res) => {
+  connection.query(
+    'SELECT * FROM tbl_buku',
+    (error, results) => {
+      // console.log(results[0]);
+      res.json({ results });
+      // return results[0];
+    }
+  );
+}
 
 module.exports = {
   test,
   homePage,
   getUser,
   loginUser,
- }
+  getBooks,
+  }
